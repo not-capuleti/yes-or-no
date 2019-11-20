@@ -1,4 +1,4 @@
-.api-data-container {
+.answer-field {
 	height: 50vh;
 	width: 70vw;
 	margin: 0 auto;
@@ -9,7 +9,7 @@
 	align-items: center;
 }
 
-.api-data-container:after {
+.answer-field:after {
 	content: "";
 	display: inline-block;
 	width: 70vw;

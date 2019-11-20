@@ -5,7 +5,7 @@ export class AnswerField extends Component {
 	render() {
 		const { isClicked, data } = this.props;
 		return (
-			<section className="api-data-container">
+			<section className="answer-field">
 				{isClicked ? (
 					<Fragment>
 						{data.image !== '' && <p id="answer">{data.answer}</p>}
