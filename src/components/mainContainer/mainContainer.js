@@ -1,13 +1,51 @@
-import React, { Component } from 'react';
-import { AnswerField } from '../answerField/answerField';
-import './mainContainer.css';
+import React, { Component, Fragment } from 'react';
+import { AnswerField } from './answerField/answerField';
+import { UserQuestion } from './userQuestion/userQuestion';
 
 export class MainContainer extends Component {
+	state = {
+		isClicked: false,
+		data: null,
+		question: ''
+	};
+
+	handleInputOnChange = (e) => {
+		e.preventDefault();
+		this.setState({ question: e.target.value });
+	};
+
+	clickHandler(e) {
+		e.preventDefault();
+		const myPromise = fetch('https://yesno.wtf/api');
+		myPromise
+			.then((resp) => {
+				if (resp.ok) {
+					return resp.json();
+				}
+				throw new Error('Error');
+			})
+			.then((data) => {
+				this.setState({
+					isClicked: true,
+					data: data,
+					question: ''
+				});
+			});
+	}
+
 	render() {
+		const { isClicked, data, question } = this.state;
 		return (
-			<section className="main-container">
-				<AnswerField />
-			</section>
+			<Fragment>
+				<UserQuestion
+					isClicked={isClicked}
+					data={data}
+					question={question}
+					clickHandler={this.clickHandler.bind(this)}
+					handleInputOnChange={this.handleInputOnChange.bind(this)}
+				/>
+				<AnswerField isClicked={isClicked} data={data} />
+			</Fragment>
 		);
 	}
 }
